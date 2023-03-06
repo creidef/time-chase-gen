@@ -4,13 +4,23 @@
 
 package model
 
-const TableNameProject = "Project"
+import (
+	"time"
+)
 
-// Project mapped from table <Project>
+const TableNameProject = "project"
+
+// Project mapped from table <project>
 type Project struct {
-	ID            int32  `gorm:"column:Id;not null" json:"Id"`
-	Name          string `gorm:"column:Name;not null" json:"Name"`
-	EstimateHours int32  `gorm:"column:EstimateHours;not null" json:"EstimateHours"`
+	ID             int32     `gorm:"column:id;not null" json:"id"`
+	Name           string    `gorm:"column:name;not null" json:"name"`
+	EstimatedHours int32     `gorm:"column:estimatedHours;not null" json:"estimatedHours"`
+	Location       string    `gorm:"column:location;not null" json:"location"`
+	CreatedAt      time.Time `gorm:"column:created_at;not null" json:"created_at"`
+	UpdatedAt      time.Time `gorm:"column:updated_at;not null" json:"updated_at"`
+	Isactive       bool      `gorm:"column:isactive;not null" json:"isactive"`
+	Customer       int32     `gorm:"column:customer;not null" json:"customer"`
+	Status         int32     `gorm:"column:status;not null" json:"status"`
 }
 
 // TableName Project's table name

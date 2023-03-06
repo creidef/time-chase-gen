@@ -27,9 +27,15 @@ func newProject(db *gorm.DB, opts ...gen.DOOption) project {
 
 	tableName := _project.projectDo.TableName()
 	_project.ALL = field.NewAsterisk(tableName)
-	_project.ID = field.NewInt32(tableName, "Id")
-	_project.Name = field.NewString(tableName, "Name")
-	_project.EstimateHours = field.NewInt32(tableName, "EstimateHours")
+	_project.ID = field.NewInt32(tableName, "id")
+	_project.Name = field.NewString(tableName, "name")
+	_project.EstimatedHours = field.NewInt32(tableName, "estimatedHours")
+	_project.Location = field.NewString(tableName, "location")
+	_project.CreatedAt = field.NewTime(tableName, "created_at")
+	_project.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_project.Isactive = field.NewBool(tableName, "isactive")
+	_project.Customer = field.NewInt32(tableName, "customer")
+	_project.Status = field.NewInt32(tableName, "status")
 
 	_project.fillFieldMap()
 
@@ -39,10 +45,16 @@ func newProject(db *gorm.DB, opts ...gen.DOOption) project {
 type project struct {
 	projectDo projectDo
 
-	ALL           field.Asterisk
-	ID            field.Int32
-	Name          field.String
-	EstimateHours field.Int32
+	ALL            field.Asterisk
+	ID             field.Int32
+	Name           field.String
+	EstimatedHours field.Int32
+	Location       field.String
+	CreatedAt      field.Time
+	UpdatedAt      field.Time
+	Isactive       field.Bool
+	Customer       field.Int32
+	Status         field.Int32
 
 	fieldMap map[string]field.Expr
 }
@@ -59,9 +71,15 @@ func (p project) As(alias string) *project {
 
 func (p *project) updateTableName(table string) *project {
 	p.ALL = field.NewAsterisk(table)
-	p.ID = field.NewInt32(table, "Id")
-	p.Name = field.NewString(table, "Name")
-	p.EstimateHours = field.NewInt32(table, "EstimateHours")
+	p.ID = field.NewInt32(table, "id")
+	p.Name = field.NewString(table, "name")
+	p.EstimatedHours = field.NewInt32(table, "estimatedHours")
+	p.Location = field.NewString(table, "location")
+	p.CreatedAt = field.NewTime(table, "created_at")
+	p.UpdatedAt = field.NewTime(table, "updated_at")
+	p.Isactive = field.NewBool(table, "isactive")
+	p.Customer = field.NewInt32(table, "customer")
+	p.Status = field.NewInt32(table, "status")
 
 	p.fillFieldMap()
 
@@ -84,10 +102,16 @@ func (p *project) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (p *project) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 3)
-	p.fieldMap["Id"] = p.ID
-	p.fieldMap["Name"] = p.Name
-	p.fieldMap["EstimateHours"] = p.EstimateHours
+	p.fieldMap = make(map[string]field.Expr, 9)
+	p.fieldMap["id"] = p.ID
+	p.fieldMap["name"] = p.Name
+	p.fieldMap["estimatedHours"] = p.EstimatedHours
+	p.fieldMap["location"] = p.Location
+	p.fieldMap["created_at"] = p.CreatedAt
+	p.fieldMap["updated_at"] = p.UpdatedAt
+	p.fieldMap["isactive"] = p.Isactive
+	p.fieldMap["customer"] = p.Customer
+	p.fieldMap["status"] = p.Status
 }
 
 func (p project) clone(db *gorm.DB) project {

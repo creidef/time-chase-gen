@@ -27,9 +27,11 @@ func newActivity(db *gorm.DB, opts ...gen.DOOption) activity {
 
 	tableName := _activity.activityDo.TableName()
 	_activity.ALL = field.NewAsterisk(tableName)
-	_activity.ID = field.NewInt32(tableName, "Id")
-	_activity.Name = field.NewString(tableName, "Name")
-	_activity.Active = field.NewInt32(tableName, "Active")
+	_activity.ID = field.NewInt32(tableName, "id")
+	_activity.Name = field.NewString(tableName, "name")
+	_activity.Isactive = field.NewBool(tableName, "isactive")
+	_activity.CreatedAt = field.NewTime(tableName, "created_at")
+	_activity.Description = field.NewString(tableName, "description")
 
 	_activity.fillFieldMap()
 
@@ -39,10 +41,12 @@ func newActivity(db *gorm.DB, opts ...gen.DOOption) activity {
 type activity struct {
 	activityDo activityDo
 
-	ALL    field.Asterisk
-	ID     field.Int32
-	Name   field.String
-	Active field.Int32
+	ALL         field.Asterisk
+	ID          field.Int32
+	Name        field.String
+	Isactive    field.Bool
+	CreatedAt   field.Time
+	Description field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -59,9 +63,11 @@ func (a activity) As(alias string) *activity {
 
 func (a *activity) updateTableName(table string) *activity {
 	a.ALL = field.NewAsterisk(table)
-	a.ID = field.NewInt32(table, "Id")
-	a.Name = field.NewString(table, "Name")
-	a.Active = field.NewInt32(table, "Active")
+	a.ID = field.NewInt32(table, "id")
+	a.Name = field.NewString(table, "name")
+	a.Isactive = field.NewBool(table, "isactive")
+	a.CreatedAt = field.NewTime(table, "created_at")
+	a.Description = field.NewString(table, "description")
 
 	a.fillFieldMap()
 
@@ -84,10 +90,12 @@ func (a *activity) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *activity) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 3)
-	a.fieldMap["Id"] = a.ID
-	a.fieldMap["Name"] = a.Name
-	a.fieldMap["Active"] = a.Active
+	a.fieldMap = make(map[string]field.Expr, 5)
+	a.fieldMap["id"] = a.ID
+	a.fieldMap["name"] = a.Name
+	a.fieldMap["isactive"] = a.Isactive
+	a.fieldMap["created_at"] = a.CreatedAt
+	a.fieldMap["description"] = a.Description
 }
 
 func (a activity) clone(db *gorm.DB) activity {

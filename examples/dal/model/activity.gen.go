@@ -4,13 +4,19 @@
 
 package model
 
-const TableNameActivity = "Activity"
+import (
+	"time"
+)
 
-// Activity mapped from table <Activity>
+const TableNameActivity = "activity"
+
+// Activity mapped from table <activity>
 type Activity struct {
-	ID     int32  `gorm:"column:Id;not null" json:"Id"`
-	Name   string `gorm:"column:Name;not null" json:"Name"`
-	Active int32  `gorm:"column:Active;not null" json:"Active"`
+	ID          int32     `gorm:"column:id;not null" json:"id"`
+	Name        string    `gorm:"column:name;not null" json:"name"`
+	Isactive    bool      `gorm:"column:isactive;not null" json:"isactive"`
+	CreatedAt   time.Time `gorm:"column:created_at;not null" json:"created_at"`
+	Description string    `gorm:"column:description;not null" json:"description"`
 }
 
 // TableName Activity's table name

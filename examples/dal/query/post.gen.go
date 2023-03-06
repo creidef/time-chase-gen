@@ -27,11 +27,20 @@ func newPost(db *gorm.DB, opts ...gen.DOOption) post {
 
 	tableName := _post.postDo.TableName()
 	_post.ALL = field.NewAsterisk(tableName)
-	_post.ID = field.NewInt32(tableName, "Id")
-	_post.CreatedAt = field.NewInt32(tableName, "CreatedAt")
-	_post.Comment = field.NewString(tableName, "Comment")
-	_post.Duration = field.NewFloat64(tableName, "Duration")
-	_post.Project = field.NewInt32(tableName, "Project")
+	_post.ID = field.NewInt32(tableName, "id")
+	_post.Comment = field.NewString(tableName, "comment")
+	_post.Date = field.NewTime(tableName, "date")
+	_post.Month = field.NewInt32(tableName, "month")
+	_post.Year = field.NewInt32(tableName, "year")
+	_post.Duration = field.NewFloat64(tableName, "duration")
+	_post.CreatedAt = field.NewTime(tableName, "created_at")
+	_post.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_post.IsLocked = field.NewBool(tableName, "isLocked")
+	_post.LockedAt = field.NewTime(tableName, "locked_at")
+	_post.Project = field.NewInt32(tableName, "project")
+	_post.Activity = field.NewInt32(tableName, "activity")
+	_post.Extratime = field.NewInt32(tableName, "extratime")
+	_post.Employee = field.NewInt32(tableName, "employee")
 
 	_post.fillFieldMap()
 
@@ -43,10 +52,19 @@ type post struct {
 
 	ALL       field.Asterisk
 	ID        field.Int32
-	CreatedAt field.Int32
 	Comment   field.String
+	Date      field.Time
+	Month     field.Int32
+	Year      field.Int32
 	Duration  field.Float64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	IsLocked  field.Bool
+	LockedAt  field.Time
 	Project   field.Int32
+	Activity  field.Int32
+	Extratime field.Int32
+	Employee  field.Int32
 
 	fieldMap map[string]field.Expr
 }
@@ -63,11 +81,20 @@ func (p post) As(alias string) *post {
 
 func (p *post) updateTableName(table string) *post {
 	p.ALL = field.NewAsterisk(table)
-	p.ID = field.NewInt32(table, "Id")
-	p.CreatedAt = field.NewInt32(table, "CreatedAt")
-	p.Comment = field.NewString(table, "Comment")
-	p.Duration = field.NewFloat64(table, "Duration")
-	p.Project = field.NewInt32(table, "Project")
+	p.ID = field.NewInt32(table, "id")
+	p.Comment = field.NewString(table, "comment")
+	p.Date = field.NewTime(table, "date")
+	p.Month = field.NewInt32(table, "month")
+	p.Year = field.NewInt32(table, "year")
+	p.Duration = field.NewFloat64(table, "duration")
+	p.CreatedAt = field.NewTime(table, "created_at")
+	p.UpdatedAt = field.NewTime(table, "updated_at")
+	p.IsLocked = field.NewBool(table, "isLocked")
+	p.LockedAt = field.NewTime(table, "locked_at")
+	p.Project = field.NewInt32(table, "project")
+	p.Activity = field.NewInt32(table, "activity")
+	p.Extratime = field.NewInt32(table, "extratime")
+	p.Employee = field.NewInt32(table, "employee")
 
 	p.fillFieldMap()
 
@@ -90,12 +117,21 @@ func (p *post) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (p *post) fillFieldMap() {
-	p.fieldMap = make(map[string]field.Expr, 5)
-	p.fieldMap["Id"] = p.ID
-	p.fieldMap["CreatedAt"] = p.CreatedAt
-	p.fieldMap["Comment"] = p.Comment
-	p.fieldMap["Duration"] = p.Duration
-	p.fieldMap["Project"] = p.Project
+	p.fieldMap = make(map[string]field.Expr, 14)
+	p.fieldMap["id"] = p.ID
+	p.fieldMap["comment"] = p.Comment
+	p.fieldMap["date"] = p.Date
+	p.fieldMap["month"] = p.Month
+	p.fieldMap["year"] = p.Year
+	p.fieldMap["duration"] = p.Duration
+	p.fieldMap["created_at"] = p.CreatedAt
+	p.fieldMap["updated_at"] = p.UpdatedAt
+	p.fieldMap["isLocked"] = p.IsLocked
+	p.fieldMap["locked_at"] = p.LockedAt
+	p.fieldMap["project"] = p.Project
+	p.fieldMap["activity"] = p.Activity
+	p.fieldMap["extratime"] = p.Extratime
+	p.fieldMap["employee"] = p.Employee
 }
 
 func (p post) clone(db *gorm.DB) post {

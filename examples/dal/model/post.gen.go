@@ -4,15 +4,28 @@
 
 package model
 
-const TableNamePost = "Post"
+import (
+	"time"
+)
 
-// Post mapped from table <Post>
+const TableNamePost = "post"
+
+// Post mapped from table <post>
 type Post struct {
-	ID        int32   `gorm:"column:Id;not null" json:"Id"`
-	CreatedAt int32   `gorm:"column:CreatedAt;not null" json:"CreatedAt"`
-	Comment   string  `gorm:"column:Comment;not null" json:"Comment"`
-	Duration  float64 `gorm:"column:Duration;not null" json:"Duration"`
-	Project   int32   `gorm:"column:Project;primaryKey" json:"Project"`
+	ID        int32     `gorm:"column:id;not null" json:"id"`
+	Comment   string    `gorm:"column:comment;not null" json:"comment"`
+	Date      time.Time `gorm:"column:date;not null" json:"date"`
+	Month     int32     `gorm:"column:month;not null" json:"month"`
+	Year      int32     `gorm:"column:year;not null" json:"year"`
+	Duration  float64   `gorm:"column:duration;not null" json:"duration"`
+	CreatedAt time.Time `gorm:"column:created_at;not null" json:"created_at"`
+	UpdatedAt time.Time `gorm:"column:updated_at;not null" json:"updated_at"`
+	IsLocked  bool      `gorm:"column:isLocked;not null" json:"isLocked"`
+	LockedAt  time.Time `gorm:"column:locked_at;not null" json:"locked_at"`
+	Project   int32     `gorm:"column:project;not null" json:"project"`
+	Activity  int32     `gorm:"column:activity;not null" json:"activity"`
+	Extratime int32     `gorm:"column:extratime;not null" json:"extratime"`
+	Employee  int32     `gorm:"column:employee;not null" json:"employee"`
 }
 
 // TableName Post's table name

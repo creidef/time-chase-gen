@@ -17,32 +17,65 @@ import (
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:             db,
-		Activity:       newActivity(db, opts...),
-		Post:           newPost(db, opts...),
-		Project:        newProject(db, opts...),
-		SqliteSequence: newSqliteSequence(db, opts...),
+		db:              db,
+		Activity:        newActivity(db, opts...),
+		Auth:            newAuth(db, opts...),
+		Bankholiday:     newBankholiday(db, opts...),
+		Customer:        newCustomer(db, opts...),
+		Employee:        newEmployee(db, opts...),
+		Expense:         newExpense(db, opts...),
+		Extratime:       newExtratime(db, opts...),
+		Picture:         newPicture(db, opts...),
+		Post:            newPost(db, opts...),
+		Project:         newProject(db, opts...),
+		Projectactivity: newProjectactivity(db, opts...),
+		Projectuser:     newProjectuser(db, opts...),
+		SqliteSequence:  newSqliteSequence(db, opts...),
+		Status:          newStatus(db, opts...),
+		TwoFa:           newTwoFa(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	Activity       activity
-	Post           post
-	Project        project
-	SqliteSequence sqliteSequence
+	Activity        activity
+	Auth            auth
+	Bankholiday     bankholiday
+	Customer        customer
+	Employee        employee
+	Expense         expense
+	Extratime       extratime
+	Picture         picture
+	Post            post
+	Project         project
+	Projectactivity projectactivity
+	Projectuser     projectuser
+	SqliteSequence  sqliteSequence
+	Status          status
+	TwoFa           twoFa
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:             db,
-		Activity:       q.Activity.clone(db),
-		Post:           q.Post.clone(db),
-		Project:        q.Project.clone(db),
-		SqliteSequence: q.SqliteSequence.clone(db),
+		db:              db,
+		Activity:        q.Activity.clone(db),
+		Auth:            q.Auth.clone(db),
+		Bankholiday:     q.Bankholiday.clone(db),
+		Customer:        q.Customer.clone(db),
+		Employee:        q.Employee.clone(db),
+		Expense:         q.Expense.clone(db),
+		Extratime:       q.Extratime.clone(db),
+		Picture:         q.Picture.clone(db),
+		Post:            q.Post.clone(db),
+		Project:         q.Project.clone(db),
+		Projectactivity: q.Projectactivity.clone(db),
+		Projectuser:     q.Projectuser.clone(db),
+		SqliteSequence:  q.SqliteSequence.clone(db),
+		Status:          q.Status.clone(db),
+		TwoFa:           q.TwoFa.clone(db),
 	}
 }
 
@@ -56,27 +89,60 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:             db,
-		Activity:       q.Activity.replaceDB(db),
-		Post:           q.Post.replaceDB(db),
-		Project:        q.Project.replaceDB(db),
-		SqliteSequence: q.SqliteSequence.replaceDB(db),
+		db:              db,
+		Activity:        q.Activity.replaceDB(db),
+		Auth:            q.Auth.replaceDB(db),
+		Bankholiday:     q.Bankholiday.replaceDB(db),
+		Customer:        q.Customer.replaceDB(db),
+		Employee:        q.Employee.replaceDB(db),
+		Expense:         q.Expense.replaceDB(db),
+		Extratime:       q.Extratime.replaceDB(db),
+		Picture:         q.Picture.replaceDB(db),
+		Post:            q.Post.replaceDB(db),
+		Project:         q.Project.replaceDB(db),
+		Projectactivity: q.Projectactivity.replaceDB(db),
+		Projectuser:     q.Projectuser.replaceDB(db),
+		SqliteSequence:  q.SqliteSequence.replaceDB(db),
+		Status:          q.Status.replaceDB(db),
+		TwoFa:           q.TwoFa.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	Activity       *activityDo
-	Post           *postDo
-	Project        *projectDo
-	SqliteSequence *sqliteSequenceDo
+	Activity        *activityDo
+	Auth            *authDo
+	Bankholiday     *bankholidayDo
+	Customer        *customerDo
+	Employee        *employeeDo
+	Expense         *expenseDo
+	Extratime       *extratimeDo
+	Picture         *pictureDo
+	Post            *postDo
+	Project         *projectDo
+	Projectactivity *projectactivityDo
+	Projectuser     *projectuserDo
+	SqliteSequence  *sqliteSequenceDo
+	Status          *statusDo
+	TwoFa           *twoFaDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		Activity:       q.Activity.WithContext(ctx),
-		Post:           q.Post.WithContext(ctx),
-		Project:        q.Project.WithContext(ctx),
-		SqliteSequence: q.SqliteSequence.WithContext(ctx),
+		Activity:        q.Activity.WithContext(ctx),
+		Auth:            q.Auth.WithContext(ctx),
+		Bankholiday:     q.Bankholiday.WithContext(ctx),
+		Customer:        q.Customer.WithContext(ctx),
+		Employee:        q.Employee.WithContext(ctx),
+		Expense:         q.Expense.WithContext(ctx),
+		Extratime:       q.Extratime.WithContext(ctx),
+		Picture:         q.Picture.WithContext(ctx),
+		Post:            q.Post.WithContext(ctx),
+		Project:         q.Project.WithContext(ctx),
+		Projectactivity: q.Projectactivity.WithContext(ctx),
+		Projectuser:     q.Projectuser.WithContext(ctx),
+		SqliteSequence:  q.SqliteSequence.WithContext(ctx),
+		Status:          q.Status.WithContext(ctx),
+		TwoFa:           q.TwoFa.WithContext(ctx),
 	}
 }
 
